@@ -4,10 +4,17 @@
 #include <ctype.h>
 #include <time.h>
 
+// Função para converter string para maiúsculas
 void toUpperCase(char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
         str[i] = toupper((unsigned char)str[i]);
     }
+}
+
+// Função para limpar o buffer de entrada
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
 }
 
 int main() {
@@ -19,13 +26,16 @@ int main() {
     int atributo_sorteado = rand() % 6;
 
     char estado1[50], sigla1[5], cidade1[50];
-    float populacao1, area1, pib1, densidade1, pib_capita1;
+    unsigned long int populacao1;
+    float area1, pib1, densidade1, pib_capita1;
     int pontos_turisticos1;
 
     char estado2[50], sigla2[5], cidade2[50];
-    float populacao2, area2, pib2, densidade2, pib_capita2;
+    unsigned long int populacao2;
+    float area2, pib2, densidade2, pib_capita2;
     int pontos_turisticos2;
 
+    // Entrada da primeira carta
     printf("Informe seu estado:\n");
     fgets(estado1, sizeof(estado1), stdin);
     estado1[strcspn(estado1, "\n")] = 0;
@@ -39,22 +49,28 @@ int main() {
     cidade1[strcspn(cidade1, "\n")] = 0;
 
     printf("Informe a população:\n");
-    scanf("%f", &populacao1);
+    scanf("%lu", &populacao1);
+    limparBuffer();
 
     printf("Informe sua área (m²):\n");
     scanf("%f", &area1);
+    limparBuffer();
 
     printf("Informe seu PIB (em bilhões):\n");
     scanf("%f", &pib1);
+    limparBuffer();
 
     printf("Informe o número de pontos turísticos:\n");
     scanf("%d", &pontos_turisticos1);
+    limparBuffer();
 
     densidade1 = (area1 != 0.0f) ? (float)populacao1 / area1 : 0.0f;
     pib_capita1 = (populacao1 != 0) ? (pib1 * 1000000000.0f) / (float)populacao1 : 0.0f;
 
+    // Entrada da segunda carta
     printf("\nInforme seu estado:\n");
-    scanf("%s", estado2);
+    fgets(estado2, sizeof(estado2), stdin);
+    estado2[strcspn(estado2, "\n")] = 0;
 
     printf("Informe o código da carta:\n");
     fgets(sigla2, sizeof(sigla2), stdin);
@@ -65,28 +81,33 @@ int main() {
     cidade2[strcspn(cidade2, "\n")] = 0;
 
     printf("Informe a população:\n");
-    scanf("%f", &populacao2);
+    scanf("%lu", &populacao2);
+    limparBuffer();
 
     printf("Informe sua área (m²):\n");
     scanf("%f", &area2);
+    limparBuffer();
 
     printf("Informe seu PIB (em bilhões):\n");
     scanf("%f", &pib2);
+    limparBuffer();
 
     printf("Informe o número de pontos turísticos:\n");
     scanf("%d", &pontos_turisticos2);
+    limparBuffer();
 
     densidade2 = (area2 != 0.0f) ? (float)populacao2 / area2 : 0.0f;
     pib_capita2 = (populacao2 != 0) ? (pib2 * 1000000000.0f) / (float)populacao2 : 0.0f;
 
+    // Exibição do atributo sorteado
     printf("\n==============================\n");
     printf("Atributo sorteado: %s\n", atributos[atributo_sorteado]);
     printf("==============================\n");
 
     // Comparação
     if (atributo_sorteado == 0) { // População
-        printf("Carta 1 - %s %s: %f\n", estado1, sigla1, populacao1);
-        printf("Carta 2 - %s %s: %f\n", estado2, sigla2, populacao2);
+        printf("Carta 1 - %s %s: %lu\n", estado1, sigla1, populacao1);
+        printf("Carta 2 - %s %s: %lu\n", estado2, sigla2, populacao2);
         if (populacao1 > populacao2) {
             toUpperCase(estado1);
             printf("Resultado: Carta 1 %s VENCEU!!!\n", estado1);
@@ -157,7 +178,16 @@ int main() {
     else if (atributo_sorteado == 5) { // Pontos Turísticos
         printf("Carta 1 - %s %s: %d\n", estado1, sigla1, pontos_turisticos1);
         printf("Carta 2 - %s %s: %d\n", estado2, sigla2, pontos_turisticos2);
+        if (pontos_turisticos1 > pontos_turisticos2) {
+            toUpperCase(estado1);
+            printf("Resultado: Carta 1 %s VENCEU!!!\n", estado1);
+        } else if (pontos_turisticos2 > pontos_turisticos1) {
+            toUpperCase(estado2);
+            printf("Resultado: Carta 2 %s VENCEU!!!\n", estado2);
+        } else {
+            printf("Resultado: EMPATE! Os pontos turísticos são iguais\n");
+        }
     }
 
-        return 0;
+    return 0;
 }

@@ -18,12 +18,12 @@ int logicaSuperTrunfo() {
     int atributo_sorteado = rand() % 6;
 
     char estado1[50], sigla1[5], cidade1[50];
-    int populacao1, pontos_turisticos1;
-    float area1, pib1;
+    int pontos_turisticos1;
+    float populacao1, area1, pib1;
 
     char estado2[50], sigla2[5], cidade2[50];
-    int populacao2, pontos_turisticos2;
-    float area2, pib2;
+    int pontos_turisticos2;
+    float populacao2, area2, pib2;
 
     float densidade1, densidade2, pib_capita1, pib_capita2;
     
@@ -67,10 +67,6 @@ int logicaSuperTrunfo() {
     pib_capita1 = pib1 / populacao1;
     printf("PIB per Capita: \n");
     printf("%.2f \n", pib_capita1);
-
-
-
-    getchar(); 
 
 
 
